@@ -29,3 +29,11 @@ finally ssh SCRIPT_VM and test the command below
 $ ssh devops@REMOTE_VM uptime
 ```
 enter your password and if the command works then you have a successfull remote-connection to the VM
+
+
+
+## ADD SSH-KEYGEN (ON SCRIPT_VM)
+```
+ssh-keygen
+ssh-copy-id devops@REMOTE_VM
+```
