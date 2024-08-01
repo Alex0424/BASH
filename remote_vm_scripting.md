@@ -1,4 +1,4 @@
-# Multi VM Scripts
+# Multi VM Scripts Setup (how to run scripts on other VM's from your VM)
 
 ## SCRIPT_VM = 192.168.20.11
 
