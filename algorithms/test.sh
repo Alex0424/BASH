@@ -50,6 +50,9 @@ test_linear_search() {
     if [ 0 -eq $exit_status ]; then
         echo Test succeeded
         (( succeded_tests = succeded_tests + 1 ))
+    else
+        echo Task failed
+        (( ++failed_tests ))
     fi
 }
 
@@ -68,9 +71,10 @@ test_bubble_sort() {
         result=$(bubble_sort "${unsorted[@]}")
         if [[ "$result" == "${sorted[*]}" ]]; then
             echo Test id $(( $i + 1 )) succeeded
-            ((succeded_tests+=1))
+            (( succeded_tests+=1 ))
         else
             echo Task id $(( $i + 1 )) failed
+            (( failed_tests+=1 ))
         fi
     done
 }
