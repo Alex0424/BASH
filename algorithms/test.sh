@@ -1,9 +1,11 @@
 #!/bin/bash
+# The code here is messy for a reason 💀 and i will not tell you why 🤭
 
 source ./binary_search.sh
 source ./linear_search.sh
+source ./bubble_sort.sh
 
-total=6
+total=10
 succeded_tests=0
 failed_tests=0
 
@@ -47,14 +49,38 @@ test_linear_search() {
     
     if [ 0 -eq $exit_status ]; then
         echo Test succeeded
-        (( ++succeded_tests ))
+        (( succeded_tests = succeded_tests + 1 ))
     fi
+}
+
+test_bubble_sort() {
+    sort_tests=(
+        "-3 -2 -1 -4,-4 -3 -2 -1"
+        "0 -6 -2 0 2 6 -4 4 ,-6 -4 -2 0 0 2 4 6"
+        "12 40 10 -20 4 30 -25,-25 -20 4 10 12 30 40"
+        "1000 60 30 10 90,10 30 60 90 1000"
+        )
+
+    amount=${#sort_tests[@]}
+    for ((i=0; i<amount; i++)); do
+            local unsorted=($(awk -F '[,]' '{print $1}' <<< "${sort_tests[$i]}"))
+            local sorted=($(cut -d ',' -f 2 <<< "${sort_tests[$i]}"))
+        result=$(bubble_sort "${unsorted[@]}")
+        if [[ "$result" == "${sorted[*]}" ]]; then
+            echo Test id $(( $i + 1 )) succeeded
+            ((succeded_tests+=1))
+        else
+            echo Task id $(( $i + 1 )) failed
+        fi
+    done
 }
 
 echo
 echo Running test_binary_search && test_binary_search
 echo
 echo Running test_linear_search && test_linear_search
+echo
+echo Running test_bubble_sort && test_bubble_sort
 echo
 echo Test outcome:
 echo Succeded:  $succeded_tests/$total
